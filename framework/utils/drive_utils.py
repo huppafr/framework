@@ -1,6 +1,7 @@
 import logging
 import re
 from typing import List
+import json
 
 from framework.utils.constants import eracli, node
 
@@ -68,3 +69,16 @@ def get_system_drive() -> List[str]:
     )
 
     return list(sys_drives)
+
+
+def clean_all_drives():
+    """
+    Cleans all standalone drives by removing metadata.
+    """
+    data = json.loads(node.exec(cmd='lsblk -J').output)
+    drives_to_clean = [
+        '/dev/' + device['name']
+        for device in data['blockdevices']
+        if device['type'] == 'disk' and 'children' not in device
+    ]
+    eracli.drive.clean(drives=' '.join(drives_to_clean))
