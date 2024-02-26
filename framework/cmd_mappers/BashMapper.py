@@ -43,7 +43,7 @@ class AbstractLinuxMapper:
         return self.connect.async_exec(cmd)
 
     def background_exec(self, cmd: str) -> None:
-        return self.connect.background_exec(cmd, silent)
+        return self.connect.background_exec(cmd)
 
     def mkdir(self, *args):
         cmd = f"mkdir {self.__add_args(args)}"
