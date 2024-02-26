@@ -68,4 +68,8 @@ class AbstractLinuxMapper:
         self.connect.close()
 
     def mount(self, device: str, mountpoint: str) -> BashResult:
-        return self.exec(f'mount {device} {mountpoint}')
+        return self.connect.exec(f'mount {device} {mountpoint}')
+
+    def cat(self, file: str) -> BashResult:
+        assert file is not None
+        return self.connect.exec(f"cat {file}")
