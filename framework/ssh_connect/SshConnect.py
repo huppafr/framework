@@ -34,7 +34,7 @@ class SshConnect:
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         self.__client = client
 
-    def ensure_connection(self, timeout=120, retry_interval=5):
+    def ensure_connection(self, timeout: int = 120, retry_interval: int = 5):
         """
         Ensures that the SSH connection is established. If the connection
         is not active, it attempts to reconnect within the given timeout.
